@@ -1,8 +1,6 @@
 package MyArrayList;
 import java.util.Arrays;
 
-
-
 class MyArrayList<T> implements MyList<T> {
     private int size;
     private int capacity;
@@ -16,26 +14,31 @@ class MyArrayList<T> implements MyList<T> {
 
     @Override
     public String toString() {
-       var elements = Arrays.copyOf(elementData, size);
+        var elements = Arrays.copyOf(elementData, size);
         return Arrays.toString(elements);
     }
 
     @Override
     public void add(T data) {
-        if(size == capacity)
+        if (size == capacity)
             grow();
         elementData[size++] = data;
     }
 
     private void grow() {
-        capacity *= 2;
+        capacity *=2;
         elementData = Arrays.copyOf(elementData, capacity);
     }
 
     @Override
     public T get(int index) {
-        if(index > size || index < 0)
+        if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException("");
+
+        for (int i = 0; i < size; i++) {
+            if (elementData[i].equals(elementData[index])) return (T) elementData[i];
+        }
+
         return (T) elementData[index];
     }
 
@@ -45,28 +48,27 @@ class MyArrayList<T> implements MyList<T> {
             throw new ArrayIndexOutOfBoundsException("");
         }
 
-        if (size == capacity) {
-            grow();
-        }
-
         for (int i = size; i > index; i--) {
             elementData[i] = elementData[i - 1];
         }
 
         elementData[index] = data;
         size++;
+
     }
 
     @Override
     public void remove(int index) {
+
         if (index > size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("");
         }
 
+
         for (int i = index; i < size - 1; i++) {
             elementData[i] = elementData[i + 1];
         }
-        elementData[--size] = null;
+        elementData[size--] = null;
     }
 
     @Override
@@ -81,11 +83,11 @@ class MyArrayList<T> implements MyList<T> {
 
     @Override
     public boolean contains(T data) {
+
         for (int i = 0; i < size; i++) {
-            if (data.equals(elementData[i])) {
-                return true;
-            }
+            if (data.equals(elementData[i])) return true;
         }
+
         return false;
     }
 
@@ -93,11 +95,9 @@ class MyArrayList<T> implements MyList<T> {
         if (this.size != another.size) return false;
 
         for (int i = 0; i < size; i++) {
-            if (this.elementData[i] != another.elementData[i]) return false;
+            if (!elementData[i].equals(another.elementData[i])) return false;
         }
+
         return true;
     }
 }
-
-
-
