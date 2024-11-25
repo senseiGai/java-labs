@@ -44,17 +44,14 @@ class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void add(T data, int index) {
-        if (index > size || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("");
-        }
 
+        if (index > size || index < 0)  throw new ArrayIndexOutOfBoundsException("");
         for (int i = size; i > index; i--) {
-            elementData[i] = elementData[i - 1];
+            elementData[i] = elementData[i-1];
         }
 
         elementData[index] = data;
         size++;
-
     }
 
     @Override
@@ -68,17 +65,19 @@ class MyArrayList<T> implements MyList<T> {
         for (int i = index; i < size - 1; i++) {
             elementData[i] = elementData[i + 1];
         }
+
         elementData[size--] = null;
     }
 
     @Override
     public void remove(T data) {
-        for (int i = 0; i < size; i++) {
-            if (data.equals(elementData[i])) {
-                remove(i);
-                return;
-            }
-        }
+
+         for (int i = 0; i < size; i++  ) {
+         if (data.equals(elementData[i])) {
+             remove(i);
+             i--;
+         }
+         }
     }
 
     @Override
@@ -87,7 +86,6 @@ class MyArrayList<T> implements MyList<T> {
         for (int i = 0; i < size; i++) {
             if (data.equals(elementData[i])) return true;
         }
-
         return false;
     }
 
@@ -101,3 +99,4 @@ class MyArrayList<T> implements MyList<T> {
         return true;
     }
 }
+
